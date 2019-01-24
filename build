@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+yarn install --force
+yarn run build
+
+pip3 install --requirement requirements.txt
+
