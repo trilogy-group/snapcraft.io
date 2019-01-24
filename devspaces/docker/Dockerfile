@@ -2,28 +2,26 @@ FROM ubuntu:bionic
 
 LABEL description="Devspaces implementation for Snapcraft.io"
 
-# Optimise environment variables
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-# Set up environment
-ENV LANG C.UTF-8
-ENV PORT 8004
-ENV FLASK_DEBUG true
-ENV SECRET_KEY local_development_fake_key
-ENV ENVIRONMENT devel
-ENV DEVEL True
-ENV BLOG_ENABLED true
-ENV BLOG_CATEGORIES_ENABLED false
-ENV WEBAPP snapcraft
-ENV BSI_URL https://build.snapcraft.io
-
-
 # Set git commit ID
 ARG COMMIT_ID
-ENV COMMIT_ID "${COMMIT_ID}"
 
 # Set which webapp configuration to load
 ARG WEBAPP=snapcraft
-ENV WEBAPP "${WEBAPP}"
+
+# Optimise environment variables
+ENV BLOG_CATEGORIES_ENABLED false \
+    BLOG_ENABLED true \
+    BSI_URL https://build.snapcraft.io \
+    COMMIT_ID "${COMMIT_ID}" \
+    DEVEL True \
+    ENVIRONMENT devel \
+    FLASK_DEBUG true \
+    LANG C.UTF-8 \
+    LC_ALL C.UTF-8 \
+    NOKOGIRI_USE_SYSTEM_LIBRARIES true \
+    PORT 8004 \
+    SECRET_KEY local_development_fake_key \
+    WEBAPP "${WEBAPP}" 
 
 # Install system packages (ruby, python, node and build libraries)
 RUN apt-get update && \
