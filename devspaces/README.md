@@ -26,7 +26,6 @@ Use `devspaces --help` to know about updated commands.
 1.  Create DevSpaces.
 
 ```bash
-cd  docker
 devspaces create
 ```
 
@@ -36,6 +35,7 @@ devspaces start snapcraftio
 ```
 
 3. Start containers synchronization
+Open terminal on folder you want to sync with devspaces and run:
 
 ```bash
 devspaces bind snapcraftio
@@ -54,17 +54,18 @@ Retrieve published DNS, endpoints using this command and
 devspaces exec snapcraftio
 ```
 
-6. Clone the source code
+6. Clone the source code on sync folder on your local machine
 
 ```bash
 git clone https://github.com/trilogy-group/snapcraft.io.git
 ```
 
+Wait untill source code is synched into devspaces container.
+
 7. Build the project
 
 ```bash
 cd snapcraft.io
-git checkout feature/devspaces - this command will not be required once PR is merged
 ./build
 ```
 
@@ -73,8 +74,13 @@ git checkout feature/devspaces - this command will not be required once PR is me
 ```bash
 ./entrypoint 0.0.0.0:80
 ```
+9. Run tests
 
-## Running Leather via Docker-Compose file
+```bash
+yarn run test
+```
+
+## Running Snapcraft.io via Docker-Compose file
 
 Currently, we have these command available to work using local docker compose.
 

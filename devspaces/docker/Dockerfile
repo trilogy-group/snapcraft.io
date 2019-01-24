@@ -9,19 +9,20 @@ ARG COMMIT_ID
 ARG WEBAPP=snapcraft
 
 # Optimise environment variables
-ENV BLOG_CATEGORIES_ENABLED false \
-    BLOG_ENABLED true \
-    BSI_URL https://build.snapcraft.io \
-    COMMIT_ID "${COMMIT_ID}" \
-    DEVEL True \
-    ENVIRONMENT devel \
-    FLASK_DEBUG true \
-    LANG C.UTF-8 \
-    LC_ALL C.UTF-8 \
-    NOKOGIRI_USE_SYSTEM_LIBRARIES true \
-    PORT 8004 \
-    SECRET_KEY local_development_fake_key \
-    WEBAPP "${WEBAPP}" 
+ENV BLOG_CATEGORIES_ENABLED false 
+ENV BLOG_ENABLED true 
+ENV BSI_URL https://build.snapcraft.io 
+ENV COMMIT_ID "${COMMIT_ID}" 
+ENV DEVEL True 
+ENV ENVIRONMENT devel 
+ENV FLASK_DEBUG true 
+ENV LANG C.UTF-8 
+ENV LC_ALL C.UTF-8 
+ENV NOKOGIRI_USE_SYSTEM_LIBRARIES true 
+ENV PORT 8004 
+ENV SECRET_KEY local_development_fake_key 
+ENV WEBAPP "${WEBAPP}"
+ENV HOME /home/shared 
 
 # Install system packages (ruby, python, node and build libraries)
 RUN apt-get update && \
@@ -44,7 +45,8 @@ RUN apt-get update && \
         ruby-bundler \ 
         ruby-dev \ 
         vim \ 
-        zlib1g-dev
+        zlib1g-dev \
+ && rm -rf /var/cache/*
 
 # Supportive python tools for debugging, syntax checking and DB connectivity
 RUN pip3 install --upgrade \
@@ -60,8 +62,7 @@ RUN pip3 install --upgrade \
 RUN npm install --global bower yarn
 
 # Create a shared home directory - this helps anonymous users have a home
-WORKDIR /home/shared
-ENV HOME=/home/shared 
+WORKDIR /home/shared 
 
 RUN mkdir -p $HOME \
  && mkdir -p $HOME/.cache/yarn/ \
