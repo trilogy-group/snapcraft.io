@@ -1,0 +1,15 @@
+version: '3.2'
+services:  
+  snapcraftio:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - type: bind
+        source: ../../
+        target: /data/snapcraft.io
+    container_name: snapcraftio-dev
+    expose:
+      - "80"
+    network_mode: host
+
